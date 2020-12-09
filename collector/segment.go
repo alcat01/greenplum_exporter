@@ -14,7 +14,7 @@ import (
  */
 
 const (
-	segmentConfigSql       = `select dbid,content,role,preferred_role,mode,status,port,hostname,address,datadir from gp_segment_configuration;`
+	segmentConfigSql       = `select dbid,content,role,preferred_role,mode,status,port,hostname,address,null as datadir from gp_segment_configuration;`
 	segmentDiskFreeSizeSql = `SELECT dfhostname as segment_hostname,sum(dfspace)/count(dfspace)/(1024*1024) as segment_disk_free_gb from gp_toolkit.gp_disk_free GROUP BY dfhostname;`
 )
 

@@ -14,11 +14,11 @@ import (
 const (
 	connectionsSql = `select 
                          count(*) total, 
-                         count(*) filter(where query='<IDLE>') idle, 
-                         count(*) filter(where query<>'<IDLE>') active,
-                         count(*) filter(where query<>'<IDLE>' and not waiting) running,
-                         count(*) filter(where query<>'<IDLE>' and waiting) waiting
-                         from pg_stat_activity where pid <> pg_backend_pid();`
+                         count(*) filter(where current_query='<IDLE>') idle, 
+                         count(*) filter(where current_query<>'<IDLE>') active,
+                         count(*) filter(where current_query<>'<IDLE>' and not waiting) running,
+                         count(*) filter(where current_query<>'<IDLE>' and waiting) waiting
+                         from pg_stat_activity where procpid <> pg_backend_pid();`
 )
 
 var (

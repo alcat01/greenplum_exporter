@@ -19,23 +19,23 @@ const (
 			 , locktype
 			 , mode
 			 , pg_stat_activity.application_name
-			 , state
+			 , 'unkown' as state
 			 , CASE
 						WHEN granted='f' THEN
 							'wait_lock'
 						WHEN granted='t' THEN
 							'get_lock'
 					END lock_satus
-			 , pg_stat_activity.query
+			 , pg_stat_activity.current_query
 			 , least(query_start,xact_start) start_time
 			 , count(*)::float
 		  FROM pg_locks
 		  JOIN pg_database ON pg_locks.database=pg_database.oid
-		  JOIN pg_stat_activity on pg_locks.pid=pg_stat_activity.pid
+		  JOIN pg_stat_activity on pg_locks.pid=pg_stat_activity.procpid
 		WHERE NOT pg_locks.pid=pg_backend_pid()
 		AND pg_stat_activity.application_name<>'pg_statsinfod'
 		GROUP BY pg_locks.pid, pg_database.datname,pg_stat_activity.usename, locktype, mode,
-		pg_stat_activity.application_name, state , lock_satus ,pg_stat_activity.query, start_time
+		pg_stat_activity.application_name, state , lock_satus ,pg_stat_activity.current_query, start_time
 		ORDER BY start_time
 		`
 )

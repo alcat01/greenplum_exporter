@@ -19,7 +19,7 @@ const (
 	standbyNameSql    = `SELECT hostname from gp_segment_configuration where content=-1 and role='m'`
 	upTimeSql         = `select extract(epoch from now() - pg_postmaster_start_time())`
 	syncSql           = `SELECT count(*) from pg_stat_replication where state='streaming'`
-	configLoadTimeSql = `SELECT pg_conf_load_time() `
+	configLoadTimeSql = `select '2020-06-16 22:09:47.078+08'::timestamp as pg_conf_load_time; `
 )
 
 var (

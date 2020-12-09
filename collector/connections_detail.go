@@ -13,14 +13,14 @@ import (
 const (
 	connectionsByUserSql = `select usename, 
                                       count(*) total, 
-                                      count(*) filter(where query='<IDLE>') idle, 
-                                      count(*) filter(where query<>'<IDLE>') active 
+                                      count(*) filter(where current_query='<IDLE>') idle, 
+                                      count(*) filter(where current_query<>'<IDLE>') active 
                                from pg_stat_activity group by 1;`
 	connectionsByClientAddressSql = `select client_addr,
                                                count(*) total,
-                                               count(*) filter(where query='<IDLE>') idle,
-                                               count(*) filter(where query<>'<IDLE>') active
-                                        from pg_stat_activity where pid <> pg_backend_pid() group by 1;`
+                                               count(*) filter(where current_query='<IDLE>') idle,
+                                               count(*) filter(where current_query<>'<IDLE>') active
+                                        from pg_stat_activity where procpid <> pg_backend_pid() group by 1;`
 )
 
 var (

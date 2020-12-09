@@ -23,7 +23,7 @@ go env -w GOPROXY=https://goproxy.io,direct
 
 (2) 软件编译
 ```
-git clone https://github.com/tangyibo/greenplum_exporter
+git clone -b gpdb5.x https://github.com/tangyibo/greenplum_exporter
 cd greenplum_exporter/ && make build
 cd bin && ls -l
 ```
@@ -31,9 +31,9 @@ cd bin && ls -l
 - docker环境下
 
 ```
-git clone https://github.com/tangyibo/greenplum_exporter
+git clone -b gpdb5.x https://github.com/tangyibo/greenplum_exporter
 cd greenplum_exporter/
-docker build -t inrgihc/greenplum6-exporter:latest .
+docker build -t inrgihc/greenplum5-exporter:latest .
 ```
 
 ### 二、 启动采集器
@@ -48,7 +48,7 @@ export GPDB_DATA_SOURCE_URL=postgres://gpadmin:password@10.17.20.11:5432/postgre
 - docker运行
 
 ```
-docker run -d -p 9297:9297 -e GPDB_DATA_SOURCE_URL=postgres://gpadmin:password@10.17.20.11:5432/postgres?sslmode=disable inrgihc/greenplum6-exporter:latest 
+docker run -d -p 9297:9297 -e GPDB_DATA_SOURCE_URL=postgres://gpadmin:password@10.17.20.11:5432/postgres?sslmode=disable inrgihc/greenplum5-exporter:latest 
 ```
 
 注：环境变量GPDB_DATA_SOURCE_URL指定了连接Greenplum数据库的连接串（请使用gpadmin账号连接postgres库），该连接串以postgres://为前缀，具体格式如下：
